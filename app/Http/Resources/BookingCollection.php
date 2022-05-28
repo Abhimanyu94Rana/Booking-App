@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
+class BookingCollection extends ResourceCollection
+{
+    /**
+     * Transform the resource collection into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     */
+    public function toArray($request)
+    {
+        // return parent::toArray($request);
+        return [
+            'status' => true,
+            'count' => count($this->collection),
+            'data' => $this->collection
+            // 'data' => [
+            //     $this->collection
+            //     // 'id' => $this->address,
+            //     // 'title' => $this->email,
+            //     // 'rating' => $this->email,
+            // ]
+            //$this->collection,
+        ];
+    }
+}
