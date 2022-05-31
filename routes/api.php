@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //API route for register new user
 Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register']);
 //API route for login user
-Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('login');
+Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('api.login');
 
 // For non authenticated users
 Route::any('/non_authenticated', function(Request $request) {        
