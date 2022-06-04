@@ -69,7 +69,7 @@
                      <span class="menu-title">Dashboard</span>
                      </a>
                   </li>
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                      <a class="nav-link" href="{{route('plans.index')}}">
                      <i class="mdi mdi-grid-large menu-icon"></i>
                      <span class="menu-title">Plans</span>
@@ -80,7 +80,7 @@
                      <i class="mdi mdi-grid-large menu-icon"></i>
                      <span class="menu-title">Subscriptions</span>
                      </a>
-                  </li>
+                  </li> --}}
                </ul>
             </nav>
             <!-- partial -->
