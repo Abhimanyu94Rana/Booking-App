@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('login');})->name('login');
-Route::post('/login', [App\Http\Controllers\LoginController::class, 'postLogin'])->name('postLogin');
+Route::get('/login', function () {return view('login');});
+Route::post('/postLogin', [App\Http\Controllers\LoginController::class, 'postLogin'])->name('postLogin');
 Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 
 // Admin Routes
