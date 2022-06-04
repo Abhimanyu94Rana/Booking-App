@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>{{$booking->user->email ?? ""}}</td>
+                    <td>{{$booking->email ?? ""}}</td>
                 </tr>
                 <tr>
                     <td>Start Date:</td>

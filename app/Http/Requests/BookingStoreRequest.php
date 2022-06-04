@@ -26,6 +26,7 @@ class BookingStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'email' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'time' => 'required',
