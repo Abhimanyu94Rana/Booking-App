@@ -21,6 +21,6 @@ class Admin
         }
         auth()->guard('web')->logout();
         \Session::flush();
-        return redirect('/');
+        return redirect('/login');
     }
 }
