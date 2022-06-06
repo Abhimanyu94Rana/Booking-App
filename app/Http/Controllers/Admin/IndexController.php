@@ -45,9 +45,11 @@ class IndexController extends Controller
 
     // Display booking info
     public function booking($id){
-        $booking = Booking::find($id);
+        $booking = Booking::FindOrFail($id);
+        $data = [];
         if($booking){
-            return view('admin.booking_info',compact('booking',$booking));
+            $data['booking'] = $booking;
+            return view('admin.booking_info',$data);
         }
     }
 }
