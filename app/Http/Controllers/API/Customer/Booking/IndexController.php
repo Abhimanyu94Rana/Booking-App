@@ -8,12 +8,15 @@ use Validator;
 use App\Models\Booking;
 use App\Http\Resources\BookingCollection;
 use App\Http\Requests\BookingStoreRequest;
-
+use Auth;
 class IndexController extends Controller
 {
     public function list(){
-        $bookings = Booking::latest()->get();
-        if($bookings->count() > 0){
+
+        $user_id = auth::user()->id;
+        $bookings = Booking::where('user_id',$user_id)->latest()->get();
+        // dd($bookings);
+        if($bookings){
             return new BookingCollection($bookings);
             // return response()->json(['status'=>true,'count'=>$bookings->count(),'data' => new BookingCollection($bookings)],200);
         }
@@ -28,8 +31,7 @@ class IndexController extends Controller
             $booking = Booking::create([  
                 'user_id' => auth()->user()->id,
                 'email' => $request->email,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+                'date' => $request->date,
                 'time' => $request->time,
                 'address' => $request->address,
                 'description' => $request->description,

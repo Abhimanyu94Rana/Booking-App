@@ -15,12 +15,8 @@
                     <td>{{$booking->email ?? ""}}</td>
                 </tr>
                 <tr>
-                    <td>Start Date:</td>
-                    <td>{{$booking->start_date ?? ""}}</td>
-                </tr>
-                <tr>
-                    <td>End Date:</td>
-                    <td>{{$booking->end_date ?? ""}}</td>
+                    <td>Date:</td>
+                    <td>{{$booking->date ?? ""}}</td>
                 </tr>
                 <tr>
                     <td>Time:</td>

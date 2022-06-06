@@ -16,8 +16,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Date</th>
                             <th>Time</th>
                             <th>Action</th>
                          </tr>
@@ -50,8 +49,7 @@
                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                { data: 'name', name: 'name' },
                { data: 'email', name: 'email' },
-               { data: 'start_date', name: 'start_date' },
-               { data: 'end_date', name: 'end_date' },
+               { data: 'date', name: 'date' },
                { data: 'time', name: 'time' },
                { data: 'action', name: 'action', orderable: false},
             ],

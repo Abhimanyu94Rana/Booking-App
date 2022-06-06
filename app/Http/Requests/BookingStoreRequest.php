@@ -27,8 +27,7 @@ class BookingStoreRequest extends FormRequest
     {
         return [
             'email' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'date' => 'required',
             'time' => 'required',
             'address' => 'required|string|max:100',
             'description' => 'required',

@@ -13,7 +13,7 @@ class IndexController extends Controller
         
         if(request()->ajax()) {
 
-            $data = Booking::select('id','email','user_id','start_date','end_date','time')->get();
+            $data = Booking::select('id','email','user_id','date','time')->get();
             return Datatables::of($data)
 
                 ->addIndexColumn()
@@ -23,11 +23,8 @@ class IndexController extends Controller
                 ->addColumn('email', function($row){                      
                     return $row->email;
                 })
-                ->addColumn('start_date', function($row){                      
-                    return $row->start_date;
-                })
-                ->addColumn('end_date', function($row){                      
-                    return $row->end_date;
+                ->addColumn('date', function($row){                      
+                    return $row->date;
                 })
                 ->addColumn('time', function($row){  
                     return \Carbon\Carbon::createFromFormat('H:i:s',$row->time)->format('h:i A');

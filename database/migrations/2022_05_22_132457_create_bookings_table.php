@@ -18,8 +18,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('email');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('date');
             $table->time('time');
             $table->string('address', 100);
             $table->text('description');
