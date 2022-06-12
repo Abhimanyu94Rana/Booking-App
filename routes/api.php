@@ -36,3 +36,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/store', [App\Http\Controllers\API\Customer\Booking\IndexController::class, 'store'])->name('store');
     });
 });
+
+// Paypal Integration
+
+Route::post('paypal', [App\Http\Controllers\API\Customer\PaypalController::class,'postPaymentWithpaypal'])->name('paypal');
+// Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PaypalController@payWithPaypal',));
+// Route::post('paypal', array('as' => 'paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
+// Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));

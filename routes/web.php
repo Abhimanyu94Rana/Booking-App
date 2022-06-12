@@ -34,3 +34,7 @@ Route::group(['middleware'=> ['admin'] ], function () {
 
     
 });
+
+// Paypal
+Route::get('pay', [App\Http\Controllers\LoginController::class,'pay'])->name('pay');
+Route::get('status', [App\Http\Controllers\LoginController::class,'status'])->name('status');

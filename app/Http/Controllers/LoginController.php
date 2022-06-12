@@ -10,7 +10,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Requests;
 use App\Models\User;
-
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -69,5 +72,29 @@ class LoginController extends Controller
         auth()->guard('web')->logout();
         \Session::flush();
         return redirect(route('login'));
+    }
+
+    public function pay()
+    {
+        return view('paypal');
+    }
+
+    public function status(Request $request)
+    {        
+        $payment_id = Session::get('paypal_payment_id');
+
+        Session::forget('paypal_payment_id');
+        if (empty($request->input('PayerID')) || empty($request->input('token'))) {            
+            return redirect('pay')->with('error', 'Payment failed');
+        }
+        $payment = Payment::get($payment_id, $this->_api_context);        
+        $execution = new PaymentExecution();
+        $execution->setPayerId($request->input('PayerID'));        
+        $result = $payment->execute($execution, $this->_api_context);
+        
+        if ($result->getState() == 'approved') {      
+            return redirect('pay')->with('success', 'Payment success !!');
+        }
+		return redirect('pay')->with('error', 'Payment failed !!');
     }
 }
