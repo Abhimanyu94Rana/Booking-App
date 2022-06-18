@@ -20,5 +20,19 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'admin'
         ]);
+
+        DB::table('plans')->insert(
+            [
+                'name' => 'Basic',
+                'price' => 15,
+                'bookings' => 10
+            ],
+            [
+                'name' => 'Premium',
+                'price' => 40,
+                'bookings' => 50
+            ]
+        );
     }
+
 }
