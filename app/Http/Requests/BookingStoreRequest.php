@@ -27,11 +27,11 @@ class BookingStoreRequest extends FormRequest
     {
         return [
             'email' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'address' => 'required|string|max:100',
-            'description' => 'required',
-            'mobile_no' => 'required|string|max:12'
+            // 'date' => 'required',
+            // 'time' => 'required',
+            // 'address' => 'required|string|max:100',
+            // 'description' => 'required',
+            // 'mobile_no' => 'required|string|max:12'
         ];
     }
 
@@ -39,7 +39,7 @@ class BookingStoreRequest extends FormRequest
     {        
         throw new HttpResponseException(response()->json([
             'success'   => false,
-            'message'      => $validator->errors()
+            'message'      => "Email is not valid."
         ],400));
     } 
 }

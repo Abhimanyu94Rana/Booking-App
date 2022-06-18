@@ -51,12 +51,12 @@ class IndexController extends Controller
                     }
                     return response()->json(['status'=>true,'message' => 'Booking has been created successfully.'],200);
                 }
-                return response()->json(['status'=>false,'message' => 'Some error occurred.'],500);            
+                return response()->json(['status'=>false,'message' => 'Some error occurred.'],400);            
             }
-            return response()->json(['status'=>false,'message' => 'Booking quota limit has exceeded.'],500);
+            return response()->json(['status'=>false,'message' => 'Booking quota limit has exceeded.'],400);
 
         } catch (\Exception $exception) {
-            return response()->json(['status'=>false,'message' => $exception->getMessage()],500);            
+            return response()->json(['status'=>false,'message' => $exception->getMessage()],400);            
         }
         
     }

@@ -14,6 +14,9 @@ use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -30,9 +33,19 @@ class LoginController extends Controller
      *
      * @return void
      */
+    // public function __construct()
+    // {
+    //     $this->middleware('guest', ['except' => 'logout']);
+    // }
+
+    private $_api_context;
+    
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => 'logout']); 
+        $paypal_configuration = \Config::get('paypal');
+        $this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_configuration['client_id'], $paypal_configuration['secret']));
+        $this->_api_context->setConfig($paypal_configuration['settings']);
     }
 
     public function login()
@@ -80,21 +93,33 @@ class LoginController extends Controller
     }
 
     public function status(Request $request)
-    {        
-        $payment_id = Session::get('paypal_payment_id');
-
+    {
+        // dd($request->all());
+        // $payment_id = Session::get('paypal_payment_id');
+        $payment_id =  $request->paymentId;
         Session::forget('paypal_payment_id');
         if (empty($request->input('PayerID')) || empty($request->input('token'))) {            
-            return redirect('pay')->with('error', 'Payment failed');
+            return redirect('pay')->with('error', 'Payment failed. Please go back to your app for further booking.');
         }
-        $payment = Payment::get($payment_id, $this->_api_context);        
+        $payment = Payment::get($payment_id, $this->_api_context);
         $execution = new PaymentExecution();
         $execution->setPayerId($request->input('PayerID'));        
         $result = $payment->execute($execution, $this->_api_context);
         
-        if ($result->getState() == 'approved') {      
-            return redirect('pay')->with('success', 'Payment success !!');
+        if ($result->getState() == 'approved') {   
+            
+            // Update user booking quote based upon subscription plan
+            $user_id = $request->id;
+            $quota = $request->quota;
+
+            $user = User::find($user_id);
+            if($user){
+                $user->booking_quota += $quota;
+                $user->save();
+                return redirect('pay')->with('success', 'Payment success. Please go back to your app for further booking.');
+            }
+            return redirect('pay')->with('error', 'Payment failed. User does not exists. Please try again via app.');
         }
-		return redirect('pay')->with('error', 'Payment failed !!');
+		return redirect('pay')->with('error', 'Payment failed. Please go back to your app for further booking.');
     }
 }

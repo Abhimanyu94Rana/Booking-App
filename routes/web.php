@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {return view('login');});
 Route::get('/login', function () {return view('login');})->name('login');
 Route::post('/postLogin', [App\Http\Controllers\LoginController::class, 'postLogin'])->name('postLogin');
 Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
@@ -35,6 +36,6 @@ Route::group(['middleware'=> ['admin'] ], function () {
     
 });
 
-// Paypal
+// Paypal Callback
 Route::get('pay', [App\Http\Controllers\LoginController::class,'pay'])->name('pay');
 Route::get('status', [App\Http\Controllers\LoginController::class,'status'])->name('status');

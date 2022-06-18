@@ -30,16 +30,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // API route for logout user
     Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
 
+    // Paypal Integration
+    Route::post('subscription', [App\Http\Controllers\API\Customer\PaypalController::class,'subscription'])->name('subscription');
+    
     // Booking Module
     Route::group([ 'prefix' => 'booking','as' => 'booking.'], function () {         
         Route::get('/list', [App\Http\Controllers\API\Customer\Booking\IndexController::class, 'list'])->name('list');
         Route::post('/store', [App\Http\Controllers\API\Customer\Booking\IndexController::class, 'store'])->name('store');
     });
 });
-
-// Paypal Integration
-
-Route::post('paypal', [App\Http\Controllers\API\Customer\PaypalController::class,'postPaymentWithpaypal'])->name('paypal');
-// Route::get('paywithpaypal', array('as' => 'paywithpaypal','uses' => 'PaypalController@payWithPaypal',));
-// Route::post('paypal', array('as' => 'paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
-// Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));
