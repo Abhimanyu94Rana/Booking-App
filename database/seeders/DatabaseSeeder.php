@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
         DB::table('plans')->insert(
             [
                 'name' => 'Basic',
-                'price' => 15,
-                'bookings' => 10
+                'price' => 14,
+                'bookings' => 1
             ],
             [
                 'name' => 'Premium',
-                'price' => 40,
-                'bookings' => 50
+                'price' => 50,
+                'bookings' => 4
             ]
         );
     }
